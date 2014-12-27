@@ -31,6 +31,7 @@ public class Server extends ServerSocket {
     }
 
     public void sendToAll(TCPStream stream, BackClient sender) throws IOException {
+
         for (BackClient client : clients)
             if (client != sender) {
                 System.out.println("Sent " + ((GameStream) stream).toString() + "to " + client.toString());
@@ -68,4 +69,6 @@ public class Server extends ServerSocket {
     public void removeClient(BackClient backClient) {
         clients.remove(backClient);
     }
+
+    public void addClient(BackClient backClient) { clients.add(backClient); }
 }

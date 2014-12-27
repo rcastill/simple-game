@@ -71,6 +71,8 @@ public class BackClient extends Thread {
             return;
         }
 
+        server.addClient(this);
+
         while (server.isRunning()) try {
             int signal = is.readByte(); // signal
             System.out.println("received " + signal);
