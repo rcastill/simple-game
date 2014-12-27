@@ -9,6 +9,7 @@ import java.io.IOException;
 public class Streamer {
 	FrontClient frontClient;
 	public boolean start;
+	public int playerNo = 0;
 
 	public Streamer() {
 		try {
@@ -16,6 +17,8 @@ public class Streamer {
 
 			while(frontClient.getName() == null)
 				frontClient.sendName("Temp" + MathUtils.random(100));
+
+			playerNo = frontClient.size + 1;
 
 			frontClient.thread.start();
 		} catch (IOException e) {

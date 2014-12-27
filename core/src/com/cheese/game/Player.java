@@ -39,15 +39,15 @@ public class Player {
 				direction = 1;
 			else
 				direction = 0;
-		}
 
-		/* Move the truck. */
-		if(direction == 0)
-			y += SPEED;
-		else if(direction == 1)
-			x -= SPEED;
-		else if(direction == 2)
-			x += SPEED;
+			/* Move the truck. */
+			if(direction == 0)
+				y += SPEED;
+			else if(direction == 1)
+				x -= SPEED;
+			else if(direction == 2)
+				x += SPEED;
+		}
 	}
 
 	public void render() {
@@ -97,5 +97,7 @@ public class Player {
 	public void take(GameStream gs) {
 		direction 	= gs.side;
 		life 		= gs.life;
+		x 			= gs.x;
+		y 			= gs.y;
 	}
 }

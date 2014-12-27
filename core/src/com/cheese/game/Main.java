@@ -15,20 +15,29 @@ public class Main extends ApplicationAdapter {
 	public void create () {
 		Tools.create();
 
-		player1 = new Player(Assets.player1, View.TILE_SIZE * 3, 0);
-		player2 = new Player(Assets.player2, View.TILE_SIZE * 3, 0);
-		road	= new Road("map.rd");
-
 		streamer = new Streamer();
+		road = new Road("map.rd");
 
 		// configurations.
 		View.setViewport();
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.input.setInputProcessor(Input.inst);
 
-		// move players to their sections.
-		player1.move(View.width / 2 - road.getRealWidth() - 10, 0);
-		player2.move(View.width / 2 + 10, 0);
+		if(streamer.playerNo == 1) {
+			player1 = new Player(Assets.player1, View.TILE_SIZE * 3, 0);
+			player2 = new Player(Assets.player2, View.TILE_SIZE * 3, 0);
+
+			// move players to their sections.
+			player1.move(View.width / 2 - road.getRealWidth() - 10, 0);
+			player2.move(View.width / 2 + 10, 0);
+		} else {
+			player1 = new Player(Assets.player2, View.TILE_SIZE * 3, 0);
+			player2 = new Player(Assets.player1, View.TILE_SIZE * 3, 0);
+
+			// move players to their sections.
+			player2.move(View.width / 2 - road.getRealWidth() - 10, 0);
+			player1.move(View.width / 2 + 10, 0);
+		}
 
 		player2.setOnline(true);
 	}
