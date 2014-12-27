@@ -15,7 +15,7 @@ public class Main extends ApplicationAdapter {
 	public void create () {
 		Tools.create();
 
-		streamer = new Streamer();
+		streamer = new Streamer(Streamer.DEV_MODE);
 		road = new Road("map.rd");
 
 		// configurations.
