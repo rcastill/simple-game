@@ -8,10 +8,11 @@ import java.io.IOException;
 
 public class Streamer {
 	FrontClient frontClient;
+	public boolean start;
 
 	public Streamer() {
 		try {
-			frontClient = new FrontClient("Temp" + MathUtils.random(100), "localhost", 5000);
+			frontClient = new FrontClient("Temp" + MathUtils.random(100), "192.168.0.11", 5000);
 
 			while(frontClient.getName() == null)
 				frontClient.sendName("Temp" + MathUtils.random(100));
@@ -35,8 +36,11 @@ public class Streamer {
 	public void in(Player player) {
 		try {
 			GameStream gs;
-			while((gs = frontClient.getGameStream()) != null)
+			while((gs = frontClient.getGameStream()) != null) {
+				System.out.println("PAQUETE!");
+				start = true;
 				player.take(gs);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
