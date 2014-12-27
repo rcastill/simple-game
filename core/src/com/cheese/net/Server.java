@@ -32,8 +32,11 @@ public class Server extends ServerSocket {
 
     public void sendToAll(TCPStream stream, BackClient sender) throws IOException {
         for (BackClient client : clients)
-            if (client != sender)
+            if (client != sender) {
+                System.out.println("Sent " + ((GameStream) stream).toString() + "to " + client.toString());
+
                 stream.send(client.os);
+            }
     }
 
     public boolean isRunning() {

@@ -34,4 +34,8 @@ public class GameStream implements TCPStream<GameStream> {
         life = is.readByte();
         return this;
     }
+
+    public String toString() {
+        return "GameString (" + x + ", " + y + ", " + side + ", " + life + ")";
+    }
 }
