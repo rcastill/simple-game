@@ -45,7 +45,7 @@ public class FrontClient extends Socket implements Runnable {
         return name;
     }
 
-    public void send(float x, float y, boolean side, int life) throws IOException, InterruptedException {
+    public void send(float x, float y, int side, int life) throws IOException, InterruptedException {
         sendQueue.put(new GameStream(x, y, side, life));
     }
 
