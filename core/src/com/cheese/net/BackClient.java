@@ -73,6 +73,7 @@ public class BackClient extends Thread {
         while (server.isRunning()) try {
             is.readByte(); // signal
             server.sendToAll(new GameStream().receive(is), this);
+            System.out.println("Packet sent (" + toString() + ")");
         } catch (IOException e) {
             disconnect();
             break;
