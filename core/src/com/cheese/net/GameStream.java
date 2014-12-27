@@ -6,15 +6,14 @@ import java.io.IOException;
 
 public class GameStream implements TCPStream<GameStream> {
     public float x, y;
-    public boolean side;
-    public byte life;
+    public byte side, life;
 
     public GameStream() {}
 
-    public GameStream(float x, float y, boolean side, int life) {
+    public GameStream(float x, float y, int side, int life) {
         this.x = x;
         this.y = y;
-        this.side = side;
+        this.side = (byte) side;
         this.life = (byte) life;
     }
 
@@ -23,7 +22,7 @@ public class GameStream implements TCPStream<GameStream> {
         os.writeByte(NetworkConstants.GAME_STREAM);
         os.writeFloat(x);
         os.writeFloat(y);
-        os.writeBoolean(side);
+        os.writeByte(side);
         os.writeByte(life);
     }
 
@@ -31,7 +30,7 @@ public class GameStream implements TCPStream<GameStream> {
     public GameStream receive(DataInputStream is) throws IOException {
         x = is.readFloat();
         y = is.readFloat();
-        side = is.readBoolean();
+        side = is.readByte();
         life = is.readByte();
         return this;
     }
