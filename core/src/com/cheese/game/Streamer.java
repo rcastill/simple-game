@@ -8,6 +8,7 @@ import java.io.IOException;
 
 public class Streamer {
 	FrontClient frontClient;
+	public boolean start;
 
 	public Streamer() {
 		try {
@@ -35,8 +36,11 @@ public class Streamer {
 	public void in(Player player) {
 		try {
 			GameStream gs;
-			while((gs = frontClient.getGameStream()) != null)
+			while((gs = frontClient.getGameStream()) != null) {
+				System.out.println("PAQUETE!");
+				start = true;
 				player.take(gs);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

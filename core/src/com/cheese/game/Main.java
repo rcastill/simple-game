@@ -46,11 +46,13 @@ public class Main extends ApplicationAdapter {
 	}
 
 	public void update() {
-		player1.update();
-		player2.update();
-
 		streamer.out(player1);
 		streamer.in(player2);
+
+		if(streamer.start) {
+			player1.update();
+			player2.update();
+		}
 
 		View.follow(View.width / 2, player1.getDrawY());
 		View.update();
