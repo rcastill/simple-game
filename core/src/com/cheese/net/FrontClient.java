@@ -80,11 +80,7 @@ public class FrontClient extends Socket implements Runnable {
         sendThread.start();
 
         while (running) try {
-            System.out.println("running");
-
             int signal = is.readByte();
-
-            System.out.println("Que mierda");
 
             switch (signal) {
                 case NetworkConstants.CONNECTION_STREAM:
@@ -99,8 +95,6 @@ public class FrontClient extends Socket implements Runnable {
                     gameStreams.add(new GameStream().receive(is));
                     break;
             }
-
-            System.out.println("Packet received (" + signal + ")");
         } catch (IOException e) {
             e.printStackTrace();
         }
