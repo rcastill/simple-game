@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 
 public class Main extends ApplicationAdapter {
 
+	Streamer streamer;
 	Player player1;
 	Player player2;
 	Road road;
@@ -17,6 +18,8 @@ public class Main extends ApplicationAdapter {
 		player1 = new Player(Assets.player1, View.TILE_SIZE * 3, 0);
 		player2 = new Player(Assets.player2, View.TILE_SIZE * 3, 0);
 		road	= new Road("map.rd");
+
+		streamer = new Streamer();
 
 		// configurations.
 		View.setViewport();
@@ -46,7 +49,10 @@ public class Main extends ApplicationAdapter {
 		player1.update();
 		player2.update();
 
-		View.follow(View.width / 2, player1.getY());
+		streamer.out(player1);
+		streamer.in(player2);
+
+		View.follow(View.width / 2, player1.getDrawY());
 		View.update();
 	}
 }
