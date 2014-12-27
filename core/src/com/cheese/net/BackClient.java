@@ -1,7 +1,5 @@
 package com.cheese.net;
 
-import sun.nio.ch.Net;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -75,7 +73,6 @@ public class BackClient extends Thread {
 
         while (server.isRunning()) try {
             int signal = is.readByte(); // signal
-            System.out.println("received " + signal);
             server.sendToAll(new GameStream().receive(is), this);
             //System.out.println("Packet sent (" + toString() + ")");
         } catch (IOException e) {

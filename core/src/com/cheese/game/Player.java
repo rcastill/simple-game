@@ -47,6 +47,9 @@ public class Player {
 				x -= SPEED;
 			else if(direction == 2)
 				x += SPEED;
+		} else {
+			if(x < View.width / 2)
+				x += View.width / 2 + 10;
 		}
 	}
 

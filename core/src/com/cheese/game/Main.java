@@ -27,8 +27,8 @@ public class Main extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(Input.inst);
 
 		// move players to their sections.
-		player1.move(View.width / 2 - road.getRealWidth(), 0);
-		player2.move(View.width / 2, 0);
+		player1.move(View.width / 2 - road.getRealWidth() - 10, 0);
+		player2.move(View.width / 2 + 10, 0);
 
 		player2.setOnline(true);
 	}
@@ -38,8 +38,8 @@ public class Main extends ApplicationAdapter {
 		update();
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		road.render(View.width / 2);
-		road.render(View.width / 2 - road.getRealWidth());
+		road.render(View.width / 2 + 10);
+		road.render(View.width / 2 - road.getRealWidth() - 10);
 
 		player1.render();
 		player2.render();

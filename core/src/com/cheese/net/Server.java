@@ -34,8 +34,6 @@ public class Server extends ServerSocket {
 
         for (BackClient client : clients)
             if (client != sender) {
-                System.out.println("Sent " + ((GameStream) stream).toString() + "to " + client.toString());
-
                 stream.send(client.os);
             }
     }
