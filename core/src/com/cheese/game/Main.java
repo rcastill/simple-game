@@ -63,7 +63,7 @@ public class Main extends ApplicationAdapter {
 			player2.update();
 		}
 
-		View.follow(View.width / 2, player1.getDrawY());
+		View.follow(View.width / 2, (player1.getDrawY() + player2.getDrawY()) / 2);
 		View.update();
 	}
 }
