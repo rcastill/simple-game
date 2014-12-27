@@ -10,7 +10,7 @@ public class Player {
 	public int height;
 	public int width;
 
-	private float x;
+	public float x;
 	private float y;
 	private int direction;
 	private boolean online;
@@ -39,18 +39,15 @@ public class Player {
 				direction = 1;
 			else
 				direction = 0;
+		}
 
 		/* Move the truck. */
-			if(direction == 0)
-				y += SPEED;
-			else if(direction == 1)
-				x -= SPEED;
-			else if(direction == 2)
-				x += SPEED;
-		} else {
-			if(x < View.width / 2)
-				x += View.width / 2 + 10;
-		}
+		if(direction == 0)
+			y += SPEED;
+		else if(direction == 1)
+			x -= SPEED;
+		else if(direction == 2)
+			x += SPEED;
 	}
 
 	public void render() {

@@ -37,7 +37,6 @@ public class Streamer {
 		try {
 			GameStream gs;
 			while((gs = frontClient.getGameStream()) != null) {
-				System.out.println("PAQUETE!");
 				start = true;
 				player.take(gs);
 			}
