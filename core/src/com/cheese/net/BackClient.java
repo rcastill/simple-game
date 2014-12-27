@@ -62,6 +62,7 @@ public class BackClient extends Thread {
                 }
 
                 server.sendToAll(new ConnectionStream(name), this);
+                System.out.println("My name is (" + toString() +")");
                 break;
             }
         } catch (IOException e) {
