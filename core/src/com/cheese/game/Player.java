@@ -97,7 +97,5 @@ public class Player {
 	public void take(GameStream gs) {
 		direction 	= gs.side;
 		life 		= gs.life;
-		x 			= gs.x;
-		y 			= gs.y;
 	}
 }
