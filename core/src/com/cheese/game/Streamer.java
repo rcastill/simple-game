@@ -11,7 +11,7 @@ public class Streamer {
 
 	public Streamer() {
 		try {
-			frontClient = new FrontClient("Temp" + MathUtils.random(100), "localhost", 5000);
+			frontClient = new FrontClient("Temp" + MathUtils.random(100), "192.168.0.11", 5000);
 
 			while(frontClient.getName() == null)
 				frontClient.sendName("Temp" + MathUtils.random(100));

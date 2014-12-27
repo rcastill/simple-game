@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Server extends ServerSocket {
     List<BackClient> clients = new ArrayList<BackClient>();
-    boolean running;
+    boolean running = true;
 
     public static void main(String[] args) {
         try {
