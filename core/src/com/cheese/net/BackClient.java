@@ -51,8 +51,10 @@ public class BackClient extends Thread {
             while (true) {
                 name = is.readUTF();
 
-                if (server.checkName(name))
+                if (server.checkName(name)) {
                     os.writeByte(NetworkConstants.GREEN_LIGHT);
+                    os.writeInt(server.clients.size());
+                }
 
                 else {
                     os.writeByte(NetworkConstants.RED_LIGHT);

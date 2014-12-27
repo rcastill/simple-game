@@ -19,6 +19,7 @@ public class FrontClient extends Socket implements Runnable {
     Queue<ConnectionStream> connectionStreams = new LinkedList<ConnectionStream>();
     Queue<DisconnectionStream> disconnectionStreams = new LinkedList<DisconnectionStream>();
     public final Thread thread;
+    public int size;
 
     public FrontClient(String name, String host, int port) throws IOException {
         super(host, port);
@@ -34,6 +35,7 @@ public class FrontClient extends Socket implements Runnable {
         int ans = is.readByte();
 
         if (ans == NetworkConstants.GREEN_LIGHT) {
+            size = is.readInt();
             this.name = name;
             return true;
         }
