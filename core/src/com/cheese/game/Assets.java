@@ -16,6 +16,8 @@ public class Assets {
 	public static Texture road_i;
 
 	public static Texture grass;
+	public static Texture tree_1;
+	public static Texture tree_2;
 
 	public static Texture player1;
 	public static Texture player2;
@@ -33,9 +35,11 @@ public class Assets {
 		road_h 		= new Texture("imgs/road-horizontal.png");
 		road_i		= new Texture("imgs/road-inter.png");
 
-		grass 	= new Texture("imgs/grass.png");
+		tree_1 		= new Texture("imgs/tree-1.png");
+		tree_2 		= new Texture("imgs/tree-2.png");
+		grass 		= new Texture("imgs/grass.png");
 
-		player1 = new Texture("imgs/truck-blue.png");
-		player2 = new Texture("imgs/truck-red.png");
+		player1 	= new Texture("imgs/truck-blue.png");
+		player2 	= new Texture("imgs/truck-red.png");
 	}
 }

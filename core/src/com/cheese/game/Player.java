@@ -9,7 +9,9 @@ import com.cheese.net.GameStream;
 import java.util.ArrayList;
 
 public class Player {
-	public static final int SPEED = 5;
+	public static final int DAMAGE_COOLDOWN = 60;
+	public static final int DAMAGE			= 10;
+	public static final int SPEED 			= 5;
 
 	public Texture texture;
 	public int height;
@@ -17,6 +19,7 @@ public class Player {
 
 	private ArrayList<Integer> directions;
 	private boolean artificial;
+	private int damageTime;
 	private boolean moving;
 	private boolean online;
 	private int direction;
@@ -36,13 +39,16 @@ public class Player {
 
 		directions 	= new ArrayList<Integer>();
 
-		_x = x;
-		_y = y;
-
-		height = width = (int) (View.TILE_SIZE * 0.9f);
+		height 	= width = (int) (View.TILE_SIZE * 0.9f);
+		life 	= 100;
+		_x 		= x;
+		_y 		= y;
 	}
 
 	public void update() {
+		if(damageTime > 0)
+			damageTime -= 1;
+
 		/* Get new direction if there's one. */
 		if(!moving && directions.size() > 0) {
 			direction = directions.get(0);
@@ -87,29 +93,46 @@ public class Player {
 				moving = false;
 			}
 		}
+
+		// apply damage.
+		if(damageTime <= 0 && !Main.road.isRoadAt(getTileX(), getTileY())) {
+			damageTime = DAMAGE_COOLDOWN;
+			life -= DAMAGE;
+		}
 	}
 
 	public void render() {
 		// draw guide line.
 		Tools.shape.setColor(getColor());
 		Tools.shape.begin(ShapeRenderer.ShapeType.Filled);
-		Tools.shape.rect(0, getY() + height + 5 - View.getY(), View.width, 2);
+		Tools.shape.rect(0, getY() + height + 5 - View.getY(), View.width, 1);
+
+		Tools.shape.setColor(getColor());
+		Tools.shape.rect(getCenterX() - 51 - View.getX(), getY() - 11 - View.getY(), 102, 7);
+
+		Tools.shape.setColor(Color.BLACK);
+		Tools.shape.rect(getCenterX() - 50 - View.getX(), getY() - 10 - View.getY(), 100, 5);
+
+		Tools.shape.setColor(getColor());
+		Tools.shape.rect(getCenterX() - 50 - View.getX(), getY() - 10 - View.getY(), life, 5);
 		Tools.shape.end();
 
 		// draw rotated truck.
 		Tools.batch.begin();
 
-		if(direction == 0)
-			Tools.batch.draw(texture, x + View.TILE_SIZE - 3 - View.getX(), y - View.getY(), 0, 0, width, height, 1, 1,
-					90, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
-		else if(direction == 1)
-			Tools.batch.draw(texture, x - View.getX(), y - View.getY(), 0, 0, width, height, 1, 1, 0, 0, 0,
-					texture.getWidth(), texture.getHeight(), true, false);
-		else if(direction == 2)
-			Tools.batch.draw(texture, x - View.getX(), y - View.getY(), width, height);
-		else if(direction == 3)
-			Tools.batch.draw(texture, x - View.getX() + 4, y - View.getY() + View.TILE_SIZE - 3, 0, 0, width, height, 1, 1,
-					270, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
+		if(damageTime <= 0 || damageTime % 4 == 0 || damageTime % 4 == 1) {
+			if(direction == 0)
+				Tools.batch.draw(texture, x + View.TILE_SIZE - 3 - View.getX(), y - View.getY(), 0, 0, width, height, 1, 1,
+						90, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
+			else if(direction == 1)
+				Tools.batch.draw(texture, x - View.getX(), y - View.getY(), 0, 0, width, height, 1, 1, 0, 0, 0,
+						texture.getWidth(), texture.getHeight(), true, false);
+			else if(direction == 2)
+				Tools.batch.draw(texture, x - View.getX(), y - View.getY(), width, height);
+			else if(direction == 3)
+				Tools.batch.draw(texture, x - View.getX() + 4, y - View.getY() + View.TILE_SIZE - 3, 0, 0, width, height, 1, 1,
+						270, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
+		}
 
 		Tools.batch.end();
 	}

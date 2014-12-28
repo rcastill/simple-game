@@ -18,11 +18,11 @@ public class Main extends ApplicationAdapter {
 		road 		= new Road("map.rd");
 
 		if(streamer.playerNo == 1) {
-			player1 = new Player(Assets.player1, View.TILE_SIZE * 3, 0);
-			player2 = new Player(Assets.player2, View.TILE_SIZE * 3 + road.getRealWidth() + 20, 0);
+			player1 = new Player(Assets.player1, View.TILE_SIZE * 4, 0);
+			player2 = new Player(Assets.player2, View.TILE_SIZE * 4 + road.getRealWidth() + 20, 0);
 		} else {
-			player1 = new Player(Assets.player2, View.TILE_SIZE * 3 + road.getRealWidth() + 20, 0);
-			player2 = new Player(Assets.player1, View.TILE_SIZE * 3, 0);
+			player1 = new Player(Assets.player2, View.TILE_SIZE * 4 + road.getRealWidth() + 20, 0);
+			player2 = new Player(Assets.player1, View.TILE_SIZE * 4, 0);
 		}
 
 //		player2.setOnline();
@@ -46,8 +46,6 @@ public class Main extends ApplicationAdapter {
 
 		player1.render();
 		player2.render();
-
-
 	}
 
 	public void update() {
@@ -59,7 +57,8 @@ public class Main extends ApplicationAdapter {
 			player2.update();
 		}
 
-		View.follow((player1.getCenterX() + player2.getCenterX()) / 2, (player1.getCenterY() + player2.getCenterY()) / 2);
+		View.follow((player1.getCenterX() + player2.getCenterX()) / 2,
+				(player1.getCenterY() + player2.getCenterY()) / 2);
 		View.update();
 		Input.update();
 	}

@@ -3,7 +3,8 @@ package com.cheese.game;
 import com.badlogic.gdx.Gdx;
 
 public class View {
-	public static final int TILE_SIZE = 64;
+	public static final float CAMERA_SPEED 	= 0.05f;
+	public static final int TILE_SIZE 		= 64;
 
 	public static int height;
 	public static int width;
@@ -19,8 +20,8 @@ public class View {
 	}
 
 	public static void update() {
-		x += (_x - x) * 0.05f;
-		y += (_y - y) * 0.05f;
+		x += (_x - x) * CAMERA_SPEED;
+		y += (_y - y) * CAMERA_SPEED;
 	}
 
 	public static void follow(int x, int y) {
@@ -40,8 +41,6 @@ public class View {
 	}
 
 	public static int getY() {
-		if(y < height / 2)
-			return 0;
 		return y - height / 2;
 	}
 }

@@ -3,6 +3,7 @@ package com.cheese.game;
 import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.math.MathUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,9 +37,14 @@ public class Road {
 					tiles = new Tile[width][height];
 				} else {
 					for(int x = 0; x < line.length(); x++) {
-						if(line.charAt(x) == '0')
-							tiles[x][height - y - 1] = new Tile(Assets.grass);
-						else if(line.charAt(x) == '1')
+						if(line.charAt(x) == '0') {
+							int random = MathUtils.random(0, 15);
+							switch(random) {
+								case 0:  tiles[x][height - y - 1] = new Tile(Assets.tree_1); break;
+								case 1:  tiles[x][height - y - 1] = new Tile(Assets.tree_2); break;
+								default: tiles[x][height - y - 1] = new Tile(Assets.grass);  break;
+							}
+						} else if(line.charAt(x) == '1')
 							tiles[x][height - y - 1] = new Tile(Assets.road_v, Tile.ROAD);
 					}
 				}
