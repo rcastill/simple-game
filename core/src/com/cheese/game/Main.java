@@ -24,7 +24,8 @@ public class Main extends ApplicationAdapter {
 			player1 = new Player(Assets.player2, View.TILE_SIZE * 3 + road.getRealWidth() + 20, 0);
 			player2 = new Player(Assets.player1, View.TILE_SIZE * 3, 0);
 		}
-//		player2.setOnline(true);
+
+//		player2.setOnline();
 		player2.setArtificial(0.5f);
 
 		// configurations.
@@ -58,7 +59,7 @@ public class Main extends ApplicationAdapter {
 			player2.update();
 		}
 
-		View.follow((player1.getDrawX() + player2.getDrawX()) / 2, (player1.getDrawY() + player2.getDrawY()) / 2);
+		View.follow((player1.getCenterX() + player2.getCenterX()) / 2, (player1.getCenterY() + player2.getCenterY()) / 2);
 		View.update();
 		Input.update();
 	}

@@ -33,13 +33,10 @@ public class AI {
 
 		if(Main.road.isRoadAt(x, y + 1) && !isVisited(x, y + 1))
 			player.addDirection(0);
-
 		else if(Main.road.isRoadAt(x - 1, y) && !isVisited(x - 1, y))
 			player.addDirection(1);
-
 		else if(Main.road.isRoadAt(x + 1, y) && !isVisited(x + 1, y))
 			player.addDirection(2);
-
 		else if(Main.road.isRoadAt(x, y - 1) && !isVisited(x, y - 1))
 			player.addDirection(3);
 	}

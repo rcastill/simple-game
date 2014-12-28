@@ -114,35 +114,71 @@ public class Player {
 		Tools.batch.end();
 	}
 
-	public void setOnline(boolean online) {
-		this.online = online;
+	/**
+	 * Sets this player as an online player, this will require the method
+	 * {@code Player.take} to update the information.
+	 */
+	public void setOnline() {
+		this.online = true;
 	}
 
+	/**
+	 * Sets this player as an AI.
+	 * @param level the level of the AI, from 0 to 1, being 1 as an non-failure intelligence.
+	 */
 	public void setArtificial(float level) {
 		this.artificial = true;
 		this.ai = new AI(level);
 	}
 
+	/**
+	 * Getter for the player's current direction.
+	 * @return the direction, 0 up, 1 left, 2, right, 3 down.
+	 */
 	public int getDirection() {
 		return direction;
 	}
 
+	/**
+	 * Getter for the player's real x position.
+	 * TODO: CHANGE NAME.
+	 * @return x.
+	 */
 	public float getX() {
 		return x;
 	}
 
+	/**
+	 * Getter for the player's real y position.
+	 * TODO: CHANGE NAME.
+	 * @return y.
+	 */
 	public float getY() {
 		return y;
 	}
 
-	public int getDrawX() {
+	/**
+	 * Getter for the player's center x.
+	 * TODO: CHANGE NAME.
+	 * @return center x.
+	 */
+	public int getCenterX() {
 		return (int) (x + width / 2);
 	}
 
-	public int getDrawY() {
+	/**
+	 * Getter for the player's center x.
+	 * TODO: CHANGE NAME.
+	 * @return center x.
+	 */
+	public int getCenterY() {
 		return (int) (y + height / 2);
 	}
 
+	/**
+	 * Obtains the x position according to tile position.
+	 * @return tile x.
+	 */
 	public int getTileX() {
 		if(x > Main.road.getRealWidth())
 			return (int) ((x - Main.road.getRealWidth() - 10) / View.TILE_SIZE);
@@ -150,6 +186,10 @@ public class Player {
 			return (int) (x / View.TILE_SIZE);
 	}
 
+	/**
+	 * Obtains the y position according to tile position.
+	 * @return tile y.
+	 */
 	public int getTileY() {
 		return (int) (y / View.TILE_SIZE);
 	}
