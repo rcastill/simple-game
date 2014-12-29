@@ -4,9 +4,10 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
-public class Main extends ApplicationAdapter {
+public class Game extends ApplicationAdapter {
 	public static ParticleSystem ps;
 	public static Streamer streamer;
+	public static Audio audio;
 	public static Road road;
 
 	Player player1;

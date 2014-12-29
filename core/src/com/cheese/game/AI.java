@@ -31,13 +31,13 @@ public class AI {
 		int x = player.getTileX();
 		int y = player.getTileY();
 
-		if(Main.road.isRoadAt(x, y + 1) && !isVisited(x, y + 1))
+		if(Game.road.isRoadAt(x, y + 1) && !isVisited(x, y + 1))
 			player.addDirection(0);
-		else if(Main.road.isRoadAt(x - 1, y) && !isVisited(x - 1, y))
+		else if(Game.road.isRoadAt(x - 1, y) && !isVisited(x - 1, y))
 			player.addDirection(1);
-		else if(Main.road.isRoadAt(x + 1, y) && !isVisited(x + 1, y))
+		else if(Game.road.isRoadAt(x + 1, y) && !isVisited(x + 1, y))
 			player.addDirection(2);
-		else if(Main.road.isRoadAt(x, y - 1) && !isVisited(x, y - 1))
+		else if(Game.road.isRoadAt(x, y - 1) && !isVisited(x, y - 1))
 			player.addDirection(3);
 	}
 

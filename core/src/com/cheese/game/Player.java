@@ -100,7 +100,7 @@ public class Player {
 		}
 
 		// apply damage.
-		if(damageTime <= 0 && !Main.road.isRoadAt(getTileX(), getTileY())) {
+		if(damageTime <= 0 && !Game.road.isRoadAt(getTileX(), getTileY())) {
 			damageTime = DAMAGE_COOLDOWN;
 			life -= DAMAGE;
 		}
@@ -111,7 +111,7 @@ public class Player {
 			emissionTime = EMISSION_FREQ;
 			int vx = direction == 1 ? 1 : (direction == 2 ? -1 : 0);
 			int vy = direction == 3 ? 1 : (direction == 0 ? -1 : 0);
-			Main.ps.emit(getCenterX() + 4 + vx * 20, getCenterY() + vy * 20, vx, vy);
+			Game.ps.emit(getCenterX() + 4 + vx * 20, getCenterY() + vy * 20, vx, vy);
 		}
 	}
 
@@ -217,8 +217,8 @@ public class Player {
 	 * @return tile x.
 	 */
 	public int getTileX() {
-		if(x > Main.road.getRealWidth())
-			return (int) ((x - Main.road.getRealWidth() - 10) / View.TILE_SIZE);
+		if(x > Game.road.getRealWidth())
+			return (int) ((x - Game.road.getRealWidth() - 10) / View.TILE_SIZE);
 		else
 			return (int) (x / View.TILE_SIZE);
 	}
