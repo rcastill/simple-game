@@ -7,7 +7,8 @@ import com.cheese.net.GameStream;
 import java.io.IOException;
 
 public class Streamer {
-	public static boolean DEV_MODE = true;
+	public static boolean ONLINE_MODE 	= false;
+	public static boolean DEV_MODE 		= true;
 
 	FrontClient frontClient;
 	public boolean devMode;

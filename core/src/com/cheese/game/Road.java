@@ -51,12 +51,14 @@ public class Road {
 		BufferedReader reader = new BufferedReader(file.reader());
 
 		try {
+			// read lines from file.
 			String line;
 			while((line = reader.readLine()) != null) {
 				Tile[] row = new Tile[line.length()];
 
 				for(int x = 0; x < line.length(); x++)
 					if(line.charAt(x) == '0') {
+						// put some trees occasionally.
 						int random = MathUtils.random(0, 15);
 						switch(random) {
 							case 0:  row[x] = new Tile(Assets.tree_1); break;
@@ -128,9 +130,14 @@ public class Road {
 	}
 
 	public void render(int d) {
+		int fromY 	= View.getY() / View.TILE_SIZE;
+		int toY		= (View.getY() + View.height) / View.TILE_SIZE + 2;
+		fromY 	= fromY > 0 ? fromY : 0;
+		toY 	= toY < height ? toY : height;
+
 		Tools.batch.begin();
 		for(int x = 0; x < width; x++)
-			for(int y = 0; y < height; y++)
+			for(int y = fromY; y < toY; y++)
 				if(tiles[x][y] != null)
 					Tools.batch.draw(tiles[x][y].getTex(), d + x * View.TILE_SIZE - View.getX(),
 							y * View.TILE_SIZE - View.getY(), View.TILE_SIZE, View.TILE_SIZE);

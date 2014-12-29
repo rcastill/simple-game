@@ -9,7 +9,7 @@ public class Audio {
 	HashMap<String, Boolean> played;
 
 	public Audio() {
-		sounds.put("car", Assets.car);
+//		sounds.put("car", Assets.car);
 	}
 
 	public void playOnce(String sound) {

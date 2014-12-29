@@ -18,7 +18,7 @@ public class Game extends ApplicationAdapter {
 		Tools.create();
 
 		streamer 	= new Streamer(Streamer.DEV_MODE);
-		road 		= new Road("maps/map2.rd", "maps/map1.rd");
+		road 		= new Road("maps/entrance.rd", "maps/map2.rd", "maps/map1.rd", "maps/map3.rd");
 		ps			= new ParticleSystem();
 
 		if(streamer.playerNo == 1) {
