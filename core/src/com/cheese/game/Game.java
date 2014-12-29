@@ -18,15 +18,15 @@ public class Game extends ApplicationAdapter {
 		Tools.create();
 
 		streamer 	= new Streamer(Streamer.DEV_MODE);
-		road 		= new Road("maps/entrance.rd", "maps/map2.rd", "maps/map1.rd", "maps/map3.rd");
+		road 		= new Road("maps/entrance.rd", "maps/map4.rd", "maps/map1.rd", "maps/map3.rd");
 		ps			= new ParticleSystem();
 
 		if(streamer.playerNo == 1) {
-			player1 = new Player(Assets.player1, View.TILE_SIZE * 4, 0);
-			player2 = new Player(Assets.player2, View.TILE_SIZE * 4 + road.getRealWidth() + 20, 0);
+			player1 = new Player(Assets.player1, View.TILE_SIZE * (road.width / 2), 0);
+			player2 = new Player(Assets.player2, View.TILE_SIZE * (road.width / 2) + road.getRealWidth() + 20, 0);
 		} else {
-			player1 = new Player(Assets.player2, View.TILE_SIZE * 4 + road.getRealWidth() + 20, 0);
-			player2 = new Player(Assets.player1, View.TILE_SIZE * 4, 0);
+			player1 = new Player(Assets.player2, View.TILE_SIZE * (road.width / 2) + road.getRealWidth() + 20, 0);
+			player2 = new Player(Assets.player1, View.TILE_SIZE * (road.width / 2), 0);
 		}
 
 //		player2.setOnline();
