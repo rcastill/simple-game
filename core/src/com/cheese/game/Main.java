@@ -5,50 +5,49 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
 public class Main extends ApplicationAdapter {
+	public static ParticleSystem ps;
+	public static Streamer streamer;
+	public static Road road;
 
-	Streamer streamer;
 	Player player1;
 	Player player2;
-	Road road;
 
 	@Override
-	public void create () {
+	public void create() {
 		Tools.create();
 
-		streamer = new Streamer(Streamer.DEV_MODE);
-		road = new Road("map.rd");
+		streamer 	= new Streamer(Streamer.DEV_MODE);
+		road 		= new Road("maps/map2.rd", "maps/map1.rd");
+		ps			= new ParticleSystem();
+
+		if(streamer.playerNo == 1) {
+			player1 = new Player(Assets.player1, View.TILE_SIZE * 4, 0);
+			player2 = new Player(Assets.player2, View.TILE_SIZE * 4 + road.getRealWidth() + 20, 0);
+		} else {
+			player1 = new Player(Assets.player2, View.TILE_SIZE * 4 + road.getRealWidth() + 20, 0);
+			player2 = new Player(Assets.player1, View.TILE_SIZE * 4, 0);
+		}
+
+//		player2.setOnline();
+		player2.setArtificial(0.5f);
 
 		// configurations.
 		View.setViewport();
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+//		View.lookAt(road.getRealWidth() + 10, 2000);
+		View.lookAt(road.getRealWidth() + 10, 0);
+		Gdx.gl.glClearColor(0.375f, 0.29296875f, 0.2421875f, 1);
 		Gdx.input.setInputProcessor(Input.inst);
-
-		if(streamer.playerNo == 1) {
-			player1 = new Player(Assets.player1, View.TILE_SIZE * 3, 0);
-			player2 = new Player(Assets.player2, View.TILE_SIZE * 3, 0);
-
-			// move players to their sections.
-			player1.move(View.width / 2 - road.getRealWidth() - 10, 0);
-			player2.move(View.width / 2 + 10, 0);
-		} else {
-			player1 = new Player(Assets.player2, View.TILE_SIZE * 3, 0);
-			player2 = new Player(Assets.player1, View.TILE_SIZE * 3, 0);
-
-			// move players to their sections.
-			player2.move(View.width / 2 - road.getRealWidth() - 10, 0);
-			player1.move(View.width / 2 + 10, 0);
-		}
-
-		player2.setOnline(true);
 	}
 
 	@Override
-	public void render () {
+	public void render() {
 		update();
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		road.render(View.width / 2 + 10);
-		road.render(View.width / 2 - road.getRealWidth() - 10);
+		road.render(0);
+		road.render(road.getRealWidth() + 20);
+
+		ps.render();
 
 		player1.render();
 		player2.render();
@@ -63,7 +62,11 @@ public class Main extends ApplicationAdapter {
 			player2.update();
 		}
 
-		View.follow(View.width / 2, (player1.getDrawY() + player2.getDrawY()) / 2);
+		ps.update();
+
+		View.follow((player1.getCenterX() + player2.getCenterX()) / 2,
+				(player1.getCenterY() + player2.getCenterY()) / 2);
 		View.update();
+		Input.update();
 	}
 }

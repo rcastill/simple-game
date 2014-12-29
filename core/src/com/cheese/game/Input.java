@@ -7,6 +7,15 @@ public class Input implements InputProcessor {
 
 	public static boolean rightButton;
 	public static boolean leftButton;
+	public static boolean downButton;
+	public static boolean upButton;
+
+	public static void update() {
+		rightButton = false;
+		leftButton 	= false;
+		downButton	= false;
+		upButton	= false;
+	}
 
 	@Override
 	public boolean keyDown(int keycode) {
@@ -14,15 +23,15 @@ public class Input implements InputProcessor {
 			leftButton = true;
 		else if(keycode == com.badlogic.gdx.Input.Keys.D)
 			rightButton = true;
+		else if(keycode == com.badlogic.gdx.Input.Keys.W)
+			upButton = true;
+		else if(keycode == com.badlogic.gdx.Input.Keys.S)
+			downButton = true;
 		return false;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
-		if(keycode == com.badlogic.gdx.Input.Keys.A)
-			leftButton = false;
-		else if(keycode == com.badlogic.gdx.Input.Keys.D)
-			rightButton = false;
 		return false;
 	}
 

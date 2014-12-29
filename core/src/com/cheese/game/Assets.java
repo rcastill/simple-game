@@ -15,10 +15,18 @@ public class Assets {
 	public static Texture road_h;
 	public static Texture road_i;
 
+	public static Texture grass_bl;
+	public static Texture grass_br;
+	public static Texture grass_tl;
+	public static Texture grass_tr;
 	public static Texture grass;
+	public static Texture tree_1;
+	public static Texture tree_2;
 
 	public static Texture player1;
 	public static Texture player2;
+
+	public static Texture smoke;
 
 	static {
 		road_t_b 	= new Texture("imgs/road-downy.png");
@@ -33,9 +41,17 @@ public class Assets {
 		road_h 		= new Texture("imgs/road-horizontal.png");
 		road_i		= new Texture("imgs/road-inter.png");
 
-		grass 	= new Texture("imgs/grass.png");
+		grass_bl	= new Texture("imgs/corner-4.png");
+		grass_br	= new Texture("imgs/corner-3.png");
+		grass_tl	= new Texture("imgs/corner-1.png");
+		grass_tr	= new Texture("imgs/corner-2.png");
+		tree_1 		= new Texture("imgs/tree-1.png");
+		tree_2 		= new Texture("imgs/tree-2.png");
+		grass 		= new Texture("imgs/grass.png");
 
-		player1 = new Texture("imgs/truck-blue.png");
-		player2 = new Texture("imgs/truck-red.png");
+		player1 	= new Texture("imgs/truck-blue.png");
+		player2 	= new Texture("imgs/truck-red.png");
+
+		smoke		= new Texture("imgs/smoke.png");
 	}
 }
