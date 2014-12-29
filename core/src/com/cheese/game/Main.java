@@ -5,8 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
 public class Main extends ApplicationAdapter {
+	public static ParticleSystem ps;
+	public static Streamer streamer;
 	public static Road road;
-	Streamer streamer;
+
 	Player player1;
 	Player player2;
 
@@ -15,7 +17,8 @@ public class Main extends ApplicationAdapter {
 		Tools.create();
 
 		streamer 	= new Streamer(Streamer.DEV_MODE);
-		road 		= new Road("map.rd");
+		road 		= new Road("maps/map2.rd", "maps/map1.rd");
+		ps			= new ParticleSystem();
 
 		if(streamer.playerNo == 1) {
 			player1 = new Player(Assets.player1, View.TILE_SIZE * 4, 0);
@@ -44,6 +47,8 @@ public class Main extends ApplicationAdapter {
 		road.render(0);
 		road.render(road.getRealWidth() + 20);
 
+		ps.render();
+
 		player1.render();
 		player2.render();
 	}
@@ -56,6 +61,8 @@ public class Main extends ApplicationAdapter {
 			player1.update();
 			player2.update();
 		}
+
+		ps.update();
 
 		View.follow((player1.getCenterX() + player2.getCenterX()) / 2,
 				(player1.getCenterY() + player2.getCenterY()) / 2);

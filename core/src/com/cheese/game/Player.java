@@ -1,5 +1,6 @@
 package com.cheese.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -9,7 +10,11 @@ import com.cheese.net.GameStream;
 import java.util.ArrayList;
 
 public class Player {
-	public static final int DAMAGE_COOLDOWN = 60;
+	/**
+	 * Frames in which the player cannot take more damage.
+	 */
+	public static final int DAMAGE_COOLDOWN = 30;
+	public static final float EMISSION_FREQ = 0.2f;
 	public static final int DAMAGE			= 10;
 	public static final int SPEED 			= 5;
 
@@ -18,6 +23,7 @@ public class Player {
 	public int width;
 
 	private ArrayList<Integer> directions;
+	private float emissionTime;
 	private boolean artificial;
 	private int damageTime;
 	private boolean moving;
@@ -49,7 +55,7 @@ public class Player {
 		if(damageTime > 0)
 			damageTime -= 1;
 
-		/* Get new direction if there's one. */
+		// get new direction from list.
 		if(!moving && directions.size() > 0) {
 			direction = directions.get(0);
 			directions.remove(0);
@@ -67,7 +73,7 @@ public class Player {
 		}
 
 		if(!online && !artificial) {
-			/* Check inputs. */
+			// check user input if this isn't artificial nor online player.
 			if(Input.rightButton)
 				directions.add(2);
 			else if(Input.leftButton)
@@ -78,11 +84,10 @@ public class Player {
 				directions.add(3);
 		}
 
-		if(artificial) {
+		if(artificial)
 			ai.update(this);
-		}
 
-		/* Move the truck only if... */
+		// move the truck only if...
 		if(moving) {
 			x += MathUtils.clamp(_x - x, -SPEED, SPEED);
 			y += MathUtils.clamp(_y - y, -SPEED, SPEED);
@@ -98,6 +103,15 @@ public class Player {
 		if(damageTime <= 0 && !Main.road.isRoadAt(getTileX(), getTileY())) {
 			damageTime = DAMAGE_COOLDOWN;
 			life -= DAMAGE;
+		}
+
+		// update emission time and emit a particle.
+		emissionTime -= Gdx.graphics.getDeltaTime();
+		if(emissionTime <= 0) {
+			emissionTime = EMISSION_FREQ;
+			int vx = direction == 1 ? 1 : (direction == 2 ? -1 : 0);
+			int vy = direction == 3 ? 1 : (direction == 0 ? -1 : 0);
+			Main.ps.emit(getCenterX() + 4 + vx * 20, getCenterY() + vy * 20, vx, vy);
 		}
 	}
 
