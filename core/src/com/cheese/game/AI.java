@@ -7,16 +7,26 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 
 public class AI {
-	boolean prevMoving;
+	ArrayList<Integer> directions;
 	ArrayList<Vector2> points;
+	boolean prevMoving;
+	Vector2 endPoint;
 	float level;
 
-	public AI(float level) {
+	public AI(Player player, float level) {
 		this.level 	= level;
-		points = new ArrayList<Vector2>();
+
+		directions	= new ArrayList<Integer>();
+		endPoint	= Game.road.getEndPoint();
+		points 		= new ArrayList<Vector2>();
+
+		tree(player.getTileX(), player.getTileY());
+		points.clear();
 	}
 
 	public void update(Player player) {
+		if(directions.size() == 0) return;
+
 		if(player.isMoving()) {
 			prevMoving = true;
 			return;
@@ -28,17 +38,30 @@ public class AI {
 
 		if(MathUtils.random() > level) return;
 
-		int x = player.getTileX();
-		int y = player.getTileY();
+		player.addDirection(directions.get(0));
+		directions.remove(0);
+	}
 
-		if(Main.road.isRoadAt(x, y + 1) && !isVisited(x, y + 1))
-			player.addDirection(0);
-		else if(Main.road.isRoadAt(x - 1, y) && !isVisited(x - 1, y))
-			player.addDirection(1);
-		else if(Main.road.isRoadAt(x + 1, y) && !isVisited(x + 1, y))
-			player.addDirection(2);
-		else if(Main.road.isRoadAt(x, y - 1) && !isVisited(x, y - 1))
-			player.addDirection(3);
+	public boolean tree(int x, int y) {
+		if(endPoint.x == x && endPoint.y == y)
+			return true;
+
+		points.add(new Vector2(x, y));
+
+		if(Game.road.isRoadAt(x, y + 1) && !isVisited(x, y + 1) && tree(x, y + 1)) {
+			directions.add(0, 0);
+			return true;
+		} else if(Game.road.isRoadAt(x - 1, y) && !isVisited(x - 1, y) && tree(x - 1, y)) {
+			directions.add(0, 1);
+			return true;
+		} else if(Game.road.isRoadAt(x + 1, y) && !isVisited(x + 1, y) && tree(x + 1, y)) {
+			directions.add(0, 2);
+			return true;
+		} else if(Game.road.isRoadAt(x, y - 1) && !isVisited(x, y - 1) && tree(x, y - 1)) {
+			directions.add(0, 3);
+			return true;
+		} else
+			return false;
 	}
 
 	public boolean isVisited(int x, int y) {

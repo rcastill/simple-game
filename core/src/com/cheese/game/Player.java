@@ -15,7 +15,7 @@ public class Player {
 	 */
 	public static final int DAMAGE_COOLDOWN = 30;
 	public static final float EMISSION_FREQ = 0.2f;
-	public static final int DAMAGE			= 10;
+	public static final int DAMAGE			= 25;
 	public static final int SPEED 			= 5;
 
 	public Texture texture;
@@ -89,8 +89,10 @@ public class Player {
 
 		// move the truck only if...
 		if(moving) {
-			x += MathUtils.clamp(_x - x, -SPEED, SPEED);
-			y += MathUtils.clamp(_y - y, -SPEED, SPEED);
+			int addition = directions.size() > 1 ? directions.size() * 2 : 0;
+
+			x += MathUtils.clamp(_x - x, -SPEED - addition, SPEED + addition);
+			y += MathUtils.clamp(_y - y, -SPEED - addition, SPEED + addition);
 
 			if((int) (x / 10) == (int) (_x / 10) && (int) (y / 10) == (int) (_y / 10)) {
 				x = _x;
@@ -100,9 +102,8 @@ public class Player {
 		}
 
 		// apply damage.
-		if(damageTime <= 0 && !Main.road.isRoadAt(getTileX(), getTileY())) {
-			damageTime = DAMAGE_COOLDOWN;
-			life -= DAMAGE;
+		if(!Game.road.isRoadAt(getTileX(), getTileY())) {
+			takeDamage(DAMAGE);
 		}
 
 		// update emission time and emit a particle.
@@ -111,7 +112,7 @@ public class Player {
 			emissionTime = EMISSION_FREQ;
 			int vx = direction == 1 ? 1 : (direction == 2 ? -1 : 0);
 			int vy = direction == 3 ? 1 : (direction == 0 ? -1 : 0);
-			Main.ps.emit(getCenterX() + 4 + vx * 20, getCenterY() + vy * 20, vx, vy);
+			Game.ps.emit(getCenterX() + 4 + vx * 20, getCenterY() + vy * 20, vx, vy);
 		}
 	}
 
@@ -119,16 +120,16 @@ public class Player {
 		// draw guide line.
 		Tools.shape.setColor(getColor());
 		Tools.shape.begin(ShapeRenderer.ShapeType.Filled);
-		Tools.shape.rect(0, getY() + height + 5 - View.getY(), View.width, 1);
+		Tools.shape.rect(0, getRealY() + height + 5 - View.getY(), View.width, 1);
 
 		Tools.shape.setColor(getColor());
-		Tools.shape.rect(getCenterX() - 51 - View.getX(), getY() - 11 - View.getY(), 102, 7);
+		Tools.shape.rect(getCenterX() - 51 - View.getX(), getRealY() - 11 - View.getY(), 102, 7);
 
 		Tools.shape.setColor(Color.BLACK);
-		Tools.shape.rect(getCenterX() - 50 - View.getX(), getY() - 10 - View.getY(), 100, 5);
+		Tools.shape.rect(getCenterX() - 50 - View.getX(), getRealY() - 10 - View.getY(), 100, 5);
 
 		Tools.shape.setColor(getColor());
-		Tools.shape.rect(getCenterX() - 50 - View.getX(), getY() - 10 - View.getY(), life, 5);
+		Tools.shape.rect(getCenterX() - 50 - View.getX(), getRealY() - 10 - View.getY(), life, 5);
 		Tools.shape.end();
 
 		// draw rotated truck.
@@ -136,16 +137,16 @@ public class Player {
 
 		if(damageTime <= 0 || damageTime % 4 == 0 || damageTime % 4 == 1) {
 			if(direction == 0)
-				Tools.batch.draw(texture, x + View.TILE_SIZE - 3 - View.getX(), y - View.getY(), 0, 0, width, height, 1, 1,
-						90, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
+				Tools.batch.draw(texture, x + View.TILE_SIZE - 3 - View.getX(), y - View.getY(), 0, 0, width, height,
+						1, 1, 90, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
 			else if(direction == 1)
 				Tools.batch.draw(texture, x - View.getX(), y - View.getY(), 0, 0, width, height, 1, 1, 0, 0, 0,
 						texture.getWidth(), texture.getHeight(), true, false);
 			else if(direction == 2)
 				Tools.batch.draw(texture, x - View.getX(), y - View.getY(), width, height);
 			else if(direction == 3)
-				Tools.batch.draw(texture, x - View.getX() + 4, y - View.getY() + View.TILE_SIZE - 3, 0, 0, width, height, 1, 1,
-						270, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
+				Tools.batch.draw(texture, x - View.getX() + 4, y - View.getY() + View.TILE_SIZE - 3, 0, 0, width,
+						height, 1, 1, 270, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
 		}
 
 		Tools.batch.end();
@@ -164,8 +165,8 @@ public class Player {
 	 * @param level the level of the AI, from 0 to 1, being 1 as an non-failure intelligence.
 	 */
 	public void setArtificial(float level) {
-		this.artificial = true;
-		this.ai = new AI(level);
+		artificial = true;
+		ai = new AI(this, level);
 	}
 
 	/**
@@ -178,25 +179,22 @@ public class Player {
 
 	/**
 	 * Getter for the player's real x position.
-	 * TODO: CHANGE NAME.
 	 * @return x.
 	 */
-	public float getX() {
+	public float getRealX() {
 		return x;
 	}
 
 	/**
 	 * Getter for the player's real y position.
-	 * TODO: CHANGE NAME.
 	 * @return y.
 	 */
-	public float getY() {
+	public float getRealY() {
 		return y;
 	}
 
 	/**
 	 * Getter for the player's center x.
-	 * TODO: CHANGE NAME.
 	 * @return center x.
 	 */
 	public int getCenterX() {
@@ -205,7 +203,6 @@ public class Player {
 
 	/**
 	 * Getter for the player's center x.
-	 * TODO: CHANGE NAME.
 	 * @return center x.
 	 */
 	public int getCenterY() {
@@ -217,8 +214,8 @@ public class Player {
 	 * @return tile x.
 	 */
 	public int getTileX() {
-		if(x > Main.road.getRealWidth())
-			return (int) ((x - Main.road.getRealWidth() - 10) / View.TILE_SIZE);
+		if(x > Game.road.getRealWidth())
+			return (int) ((x - Game.road.getRealWidth() - 10) / View.TILE_SIZE);
 		else
 			return (int) (x / View.TILE_SIZE);
 	}
@@ -269,5 +266,14 @@ public class Player {
 			color = new Color(0.82421875f, 0.28125f, 0.2109375f, 0);
 
 		return color;
+	}
+
+	public void takeDamage(int damage) {
+		if(life > 0 && damageTime <= 0) {
+			damageTime = DAMAGE_COOLDOWN;
+			life -= damage;
+
+			life = MathUtils.clamp(life, 0, 100);
+		}
 	}
 }

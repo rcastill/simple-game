@@ -4,6 +4,7 @@ import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,8 +19,9 @@ public class Road {
 	public Road(String... files) {
 		// load all maps.
 		ArrayList<Tile[]> rows = new ArrayList<Tile[]>();
-		for(int i = files.length - 1; i > -1; i--)
+		for(int i = files.length - 1; i > -1; i--) {
 			rows.addAll(loadTiles(files[i]));
+		}
 
 		// get max row width.
 		int maxWidth = 0;
@@ -51,20 +53,23 @@ public class Road {
 		BufferedReader reader = new BufferedReader(file.reader());
 
 		try {
+			// read lines from file.
 			String line;
 			while((line = reader.readLine()) != null) {
 				Tile[] row = new Tile[line.length()];
 
 				for(int x = 0; x < line.length(); x++)
-					if(line.charAt(x) == '0') {
+					if(line.charAt(x) == ':') {
+						// put some trees occasionally.
 						int random = MathUtils.random(0, 15);
 						switch(random) {
 							case 0:  row[x] = new Tile(Assets.tree_1); break;
 							case 1:  row[x] = new Tile(Assets.tree_2); break;
 							default: row[x] = new Tile(Assets.grass);  break;
 						}
-					} else if(line.charAt(x) == '1')
+					} else if(line.charAt(x) == '#') {
 						row[x] = new Tile(Assets.road_v, Tile.ROAD);
+					}
 
 				tiles.add(row);
 			}
@@ -107,6 +112,16 @@ public class Road {
 							tiles[x][y].texture = Assets.road_bl;
 						else if(isRoadAt(x + 1, y) && isRoadAt(x, y + 1))
 							tiles[x][y].texture = Assets.road_br;
+						else {
+							if(isRoadAt(x - 1, y))
+								tiles[x][y].texture = Assets.road_s_r;
+							else if(isRoadAt(x + 1, y))
+								tiles[x][y].texture = Assets.road_s_l;
+							else if(isRoadAt(x, y + 1))
+								tiles[x][y].texture = Assets.road_s_d;
+							else if(isRoadAt(x, y - 1))
+								tiles[x][y].texture = Assets.road_s_u;
+						}
 					}
 				}
 			}
@@ -128,9 +143,14 @@ public class Road {
 	}
 
 	public void render(int d) {
+		int fromY 	= View.getY() / View.TILE_SIZE;
+		int toY		= (View.getY() + View.height) / View.TILE_SIZE + 2;
+		fromY 	= fromY > 0 ? fromY : 0;
+		toY 	= toY < height ? toY : height;
+
 		Tools.batch.begin();
 		for(int x = 0; x < width; x++)
-			for(int y = 0; y < height; y++)
+			for(int y = fromY; y < toY; y++)
 				if(tiles[x][y] != null)
 					Tools.batch.draw(tiles[x][y].getTex(), d + x * View.TILE_SIZE - View.getX(),
 							y * View.TILE_SIZE - View.getY(), View.TILE_SIZE, View.TILE_SIZE);
@@ -153,5 +173,26 @@ public class Road {
 
 	public boolean isRoadAt(int x, int y) {
 		return isTileAt(x, y) && tiles[x][y].isRoad();
+	}
+
+	public int getIntersectionsAt(int x, int y) {
+		int i = 0;
+		if(isRoadAt(x, y)) {
+			if(isRoadAt(x - 1, y)) i++;
+			if(isRoadAt(x + 1, y)) i++;
+			if(isRoadAt(x, y - 1)) i++;
+			if(isRoadAt(x, y + 1)) i++;
+		}
+		return i;
+	}
+
+	public Vector2 getEndPoint() {
+		Vector2 endPoint = new Vector2();
+
+		for(int x = 0; x < width; x++)
+			if(isRoadAt(x, height - 2))
+				endPoint.set(x, height - 2);
+
+		return endPoint;
 	}
 }

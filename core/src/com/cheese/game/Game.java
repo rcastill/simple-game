@@ -4,9 +4,10 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
-public class Main extends ApplicationAdapter {
+public class Game extends ApplicationAdapter {
 	public static ParticleSystem ps;
 	public static Streamer streamer;
+	public static Audio audio;
 	public static Road road;
 
 	Player player1;
@@ -17,15 +18,28 @@ public class Main extends ApplicationAdapter {
 		Tools.create();
 
 		streamer 	= new Streamer(Streamer.DEV_MODE);
-		road 		= new Road("maps/map2.rd", "maps/map1.rd");
 		ps			= new ParticleSystem();
+		road 		= new Road(
+				"maps/entrance.road",
+				"maps/cheese.road",
+				"maps/map9.road",
+				"maps/map8.road",
+				"maps/map7.road",
+				"maps/map6.road",
+				"maps/map5.road",
+				"maps/map4.road",
+				"maps/map3.road",
+				"maps/map2.road",
+				"maps/map1.road",
+				"maps/end.road"
+		);
 
 		if(streamer.playerNo == 1) {
-			player1 = new Player(Assets.player1, View.TILE_SIZE * 4, 0);
-			player2 = new Player(Assets.player2, View.TILE_SIZE * 4 + road.getRealWidth() + 20, 0);
+			player1 = new Player(Assets.player1, View.TILE_SIZE * (road.width / 2), View.TILE_SIZE);
+			player2 = new Player(Assets.player2, View.TILE_SIZE * (road.width / 2) + road.getRealWidth() + 20, View.TILE_SIZE);
 		} else {
-			player1 = new Player(Assets.player2, View.TILE_SIZE * 4 + road.getRealWidth() + 20, 0);
-			player2 = new Player(Assets.player1, View.TILE_SIZE * 4, 0);
+			player1 = new Player(Assets.player2, View.TILE_SIZE * (road.width / 2) + road.getRealWidth() + 20, View.TILE_SIZE);
+			player2 = new Player(Assets.player1, View.TILE_SIZE * (road.width / 2), View.TILE_SIZE);
 		}
 
 //		player2.setOnline();
@@ -64,8 +78,7 @@ public class Main extends ApplicationAdapter {
 
 		ps.update();
 
-		View.follow((player1.getCenterX() + player2.getCenterX()) / 2,
-				(player1.getCenterY() + player2.getCenterY()) / 2);
+		View.follow((player1.getCenterX() + player2.getCenterX()) / 2, player1.getCenterY());
 		View.update();
 		Input.update();
 	}
