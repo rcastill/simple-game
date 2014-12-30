@@ -1,7 +1,8 @@
 package com.cheese.game;
 
-import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class Assets {
 	public static Texture road_t_b;
@@ -29,6 +30,8 @@ public class Assets {
 
 	public static Texture smoke;
 
+	public static BitmapFont font;
+
 	static {
 		road_t_b 	= new Texture("imgs/road-downy.png");
 		road_t_u 	= new Texture("imgs/road-upty.png");
@@ -54,5 +57,8 @@ public class Assets {
 		player2 	= new Texture("imgs/truck-red.png");
 
 		smoke		= new Texture("imgs/smoke.png");
+
+		font = new BitmapFont(Gdx.files.internal("fonts/century_gothic.fnt"));
+		font.setScale(0.75f, 0.75f);
 	}
 }

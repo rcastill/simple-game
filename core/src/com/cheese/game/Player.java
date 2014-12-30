@@ -119,16 +119,16 @@ public class Player {
 		// draw guide line.
 		Tools.shape.setColor(getColor());
 		Tools.shape.begin(ShapeRenderer.ShapeType.Filled);
-		Tools.shape.rect(0, getY() + height + 5 - View.getY(), View.width, 1);
+		Tools.shape.rect(0, getRealY() + height + 5 - View.getY(), View.width, 1);
 
 		Tools.shape.setColor(getColor());
-		Tools.shape.rect(getCenterX() - 51 - View.getX(), getY() - 11 - View.getY(), 102, 7);
+		Tools.shape.rect(getCenterX() - 51 - View.getX(), getRealY() - 11 - View.getY(), 102, 7);
 
 		Tools.shape.setColor(Color.BLACK);
-		Tools.shape.rect(getCenterX() - 50 - View.getX(), getY() - 10 - View.getY(), 100, 5);
+		Tools.shape.rect(getCenterX() - 50 - View.getX(), getRealY() - 10 - View.getY(), 100, 5);
 
 		Tools.shape.setColor(getColor());
-		Tools.shape.rect(getCenterX() - 50 - View.getX(), getY() - 10 - View.getY(), life, 5);
+		Tools.shape.rect(getCenterX() - 50 - View.getX(), getRealY() - 10 - View.getY(), life, 5);
 		Tools.shape.end();
 
 		// draw rotated truck.
@@ -136,16 +136,16 @@ public class Player {
 
 		if(damageTime <= 0 || damageTime % 4 == 0 || damageTime % 4 == 1) {
 			if(direction == 0)
-				Tools.batch.draw(texture, x + View.TILE_SIZE - 3 - View.getX(), y - View.getY(), 0, 0, width, height, 1, 1,
-						90, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
+				Tools.batch.draw(texture, x + View.TILE_SIZE - 3 - View.getX(), y - View.getY(), 0, 0, width, height,
+						1, 1, 90, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
 			else if(direction == 1)
 				Tools.batch.draw(texture, x - View.getX(), y - View.getY(), 0, 0, width, height, 1, 1, 0, 0, 0,
 						texture.getWidth(), texture.getHeight(), true, false);
 			else if(direction == 2)
 				Tools.batch.draw(texture, x - View.getX(), y - View.getY(), width, height);
 			else if(direction == 3)
-				Tools.batch.draw(texture, x - View.getX() + 4, y - View.getY() + View.TILE_SIZE - 3, 0, 0, width, height, 1, 1,
-						270, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
+				Tools.batch.draw(texture, x - View.getX() + 4, y - View.getY() + View.TILE_SIZE - 3, 0, 0, width,
+						height, 1, 1, 270, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
 		}
 
 		Tools.batch.end();
@@ -178,25 +178,22 @@ public class Player {
 
 	/**
 	 * Getter for the player's real x position.
-	 * TODO: CHANGE NAME.
 	 * @return x.
 	 */
-	public float getX() {
+	public float getRealX() {
 		return x;
 	}
 
 	/**
 	 * Getter for the player's real y position.
-	 * TODO: CHANGE NAME.
 	 * @return y.
 	 */
-	public float getY() {
+	public float getRealY() {
 		return y;
 	}
 
 	/**
 	 * Getter for the player's center x.
-	 * TODO: CHANGE NAME.
 	 * @return center x.
 	 */
 	public int getCenterX() {
@@ -205,7 +202,6 @@ public class Player {
 
 	/**
 	 * Getter for the player's center x.
-	 * TODO: CHANGE NAME.
 	 * @return center x.
 	 */
 	public int getCenterY() {

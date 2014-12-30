@@ -57,7 +57,7 @@ public class Road {
 				Tile[] row = new Tile[line.length()];
 
 				for(int x = 0; x < line.length(); x++)
-					if(line.charAt(x) == '0') {
+					if(line.charAt(x) == ':') {
 						// put some trees occasionally.
 						int random = MathUtils.random(0, 15);
 						switch(random) {
@@ -65,7 +65,7 @@ public class Road {
 							case 1:  row[x] = new Tile(Assets.tree_2); break;
 							default: row[x] = new Tile(Assets.grass);  break;
 						}
-					} else if(line.charAt(x) == '1')
+					} else if(line.charAt(x) == '#')
 						row[x] = new Tile(Assets.road_v, Tile.ROAD);
 
 				tiles.add(row);

@@ -45,7 +45,7 @@ public class Streamer {
 		if(devMode) return;
 
 		try {
-			frontClient.send(player.getX(), player.getY(), player.getDirection(), player.getLife());
+			frontClient.send(player.getRealX(), player.getRealY(), player.getDirection(), player.getLife());
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
