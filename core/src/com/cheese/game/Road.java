@@ -67,8 +67,9 @@ public class Road {
 							case 1:  row[x] = new Tile(Assets.tree_2); break;
 							default: row[x] = new Tile(Assets.grass);  break;
 						}
-					} else if(line.charAt(x) == '#')
+					} else if(line.charAt(x) == '#') {
 						row[x] = new Tile(Assets.road_v, Tile.ROAD);
+					}
 
 				tiles.add(row);
 			}

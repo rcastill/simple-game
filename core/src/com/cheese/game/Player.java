@@ -89,8 +89,10 @@ public class Player {
 
 		// move the truck only if...
 		if(moving) {
-			x += MathUtils.clamp(_x - x, -SPEED, SPEED);
-			y += MathUtils.clamp(_y - y, -SPEED, SPEED);
+			int addition = directions.size() > 1 ? directions.size() * 2 : 0;
+
+			x += MathUtils.clamp(_x - x, -SPEED - addition, SPEED + addition);
+			y += MathUtils.clamp(_y - y, -SPEED - addition, SPEED + addition);
 
 			if((int) (x / 10) == (int) (_x / 10) && (int) (y / 10) == (int) (_y / 10)) {
 				x = _x;
@@ -100,9 +102,8 @@ public class Player {
 		}
 
 		// apply damage.
-		if(damageTime <= 0 && !Game.road.isRoadAt(getTileX(), getTileY())) {
-			damageTime = DAMAGE_COOLDOWN;
-			life -= DAMAGE;
+		if(!Game.road.isRoadAt(getTileX(), getTileY())) {
+			takeDamage(DAMAGE);
 		}
 
 		// update emission time and emit a particle.
@@ -265,5 +266,14 @@ public class Player {
 			color = new Color(0.82421875f, 0.28125f, 0.2109375f, 0);
 
 		return color;
+	}
+
+	public void takeDamage(int damage) {
+		if(life > 0 && damageTime <= 0) {
+			damageTime = DAMAGE_COOLDOWN;
+			life -= damage;
+
+			life = MathUtils.clamp(life, 0, 100);
+		}
 	}
 }

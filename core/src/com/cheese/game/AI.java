@@ -10,23 +10,23 @@ public class AI {
 	ArrayList<Integer> directions;
 	ArrayList<Vector2> points;
 	boolean prevMoving;
-	float level;
-
 	Vector2 endPoint;
+	float level;
 
 	public AI(Player player, float level) {
 		this.level 	= level;
 
 		directions	= new ArrayList<Integer>();
-		points 		= new ArrayList<Vector2>();
-
 		endPoint	= Game.road.getEndPoint();
+		points 		= new ArrayList<Vector2>();
 
 		tree(player.getTileX(), player.getTileY());
 		points.clear();
 	}
 
 	public void update(Player player) {
+		if(directions.size() == 0) return;
+
 		if(player.isMoving()) {
 			prevMoving = true;
 			return;

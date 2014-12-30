@@ -21,22 +21,25 @@ public class Game extends ApplicationAdapter {
 		ps			= new ParticleSystem();
 		road 		= new Road(
 				"maps/entrance.road",
+				"maps/cheese.road",
+				"maps/map9.road",
+				"maps/map8.road",
+				"maps/map7.road",
 				"maps/map6.road",
-				"maps/map1.road",
+				"maps/map5.road",
 				"maps/map4.road",
 				"maps/map3.road",
-				"maps/map5.road",
-				"maps/map6.road",
-				"maps/map4.road",
+				"maps/map2.road",
+				"maps/map1.road",
 				"maps/end.road"
 		);
 
 		if(streamer.playerNo == 1) {
-			player1 = new Player(Assets.player1, View.TILE_SIZE * (road.width / 2), 0);
-			player2 = new Player(Assets.player2, View.TILE_SIZE * (road.width / 2) + road.getRealWidth() + 20, 0);
+			player1 = new Player(Assets.player1, View.TILE_SIZE * (road.width / 2), View.TILE_SIZE);
+			player2 = new Player(Assets.player2, View.TILE_SIZE * (road.width / 2) + road.getRealWidth() + 20, View.TILE_SIZE);
 		} else {
-			player1 = new Player(Assets.player2, View.TILE_SIZE * (road.width / 2) + road.getRealWidth() + 20, 0);
-			player2 = new Player(Assets.player1, View.TILE_SIZE * (road.width / 2), 0);
+			player1 = new Player(Assets.player2, View.TILE_SIZE * (road.width / 2) + road.getRealWidth() + 20, View.TILE_SIZE);
+			player2 = new Player(Assets.player1, View.TILE_SIZE * (road.width / 2), View.TILE_SIZE);
 		}
 
 //		player2.setOnline();
