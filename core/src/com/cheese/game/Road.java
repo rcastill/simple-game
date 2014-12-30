@@ -4,6 +4,7 @@ import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,8 +19,9 @@ public class Road {
 	public Road(String... files) {
 		// load all maps.
 		ArrayList<Tile[]> rows = new ArrayList<Tile[]>();
-		for(int i = files.length - 1; i > -1; i--)
+		for(int i = files.length - 1; i > -1; i--) {
 			rows.addAll(loadTiles(files[i]));
+		}
 
 		// get max row width.
 		int maxWidth = 0;
@@ -109,6 +111,16 @@ public class Road {
 							tiles[x][y].texture = Assets.road_bl;
 						else if(isRoadAt(x + 1, y) && isRoadAt(x, y + 1))
 							tiles[x][y].texture = Assets.road_br;
+						else {
+							if(isRoadAt(x - 1, y))
+								tiles[x][y].texture = Assets.road_s_r;
+							else if(isRoadAt(x + 1, y))
+								tiles[x][y].texture = Assets.road_s_l;
+							else if(isRoadAt(x, y + 1))
+								tiles[x][y].texture = Assets.road_s_d;
+							else if(isRoadAt(x, y - 1))
+								tiles[x][y].texture = Assets.road_s_u;
+						}
 					}
 				}
 			}
@@ -160,5 +172,26 @@ public class Road {
 
 	public boolean isRoadAt(int x, int y) {
 		return isTileAt(x, y) && tiles[x][y].isRoad();
+	}
+
+	public int getIntersectionsAt(int x, int y) {
+		int i = 0;
+		if(isRoadAt(x, y)) {
+			if(isRoadAt(x - 1, y)) i++;
+			if(isRoadAt(x + 1, y)) i++;
+			if(isRoadAt(x, y - 1)) i++;
+			if(isRoadAt(x, y + 1)) i++;
+		}
+		return i;
+	}
+
+	public Vector2 getEndPoint() {
+		Vector2 endPoint = new Vector2();
+
+		for(int x = 0; x < width; x++)
+			if(isRoadAt(x, height - 2))
+				endPoint.set(x, height - 2);
+
+		return endPoint;
 	}
 }

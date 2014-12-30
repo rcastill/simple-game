@@ -5,6 +5,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class Assets {
+	public static Texture road_s_d;
+	public static Texture road_s_r;
+	public static Texture road_s_l;
+	public static Texture road_s_u;
 	public static Texture road_t_b;
 	public static Texture road_t_u;
 	public static Texture road_t_l;
@@ -33,6 +37,10 @@ public class Assets {
 	public static BitmapFont font;
 
 	static {
+		road_s_d	= new Texture("imgs/road-stop-down.png");
+		road_s_l	= new Texture("imgs/road-stop-left.png");
+		road_s_r	= new Texture("imgs/road-stop-right.png");
+		road_s_u	= new Texture("imgs/road-stop-up.png");
 		road_t_b 	= new Texture("imgs/road-downy.png");
 		road_t_u 	= new Texture("imgs/road-upty.png");
 		road_t_l 	= new Texture("imgs/road-righty.png");

@@ -15,7 +15,7 @@ public class Player {
 	 */
 	public static final int DAMAGE_COOLDOWN = 30;
 	public static final float EMISSION_FREQ = 0.2f;
-	public static final int DAMAGE			= 10;
+	public static final int DAMAGE			= 25;
 	public static final int SPEED 			= 5;
 
 	public Texture texture;
@@ -164,8 +164,8 @@ public class Player {
 	 * @param level the level of the AI, from 0 to 1, being 1 as an non-failure intelligence.
 	 */
 	public void setArtificial(float level) {
-		this.artificial = true;
-		this.ai = new AI(level);
+		artificial = true;
+		ai = new AI(this, level);
 	}
 
 	/**

@@ -18,17 +18,18 @@ public class Game extends ApplicationAdapter {
 		Tools.create();
 
 		streamer 	= new Streamer(Streamer.DEV_MODE);
+		ps			= new ParticleSystem();
 		road 		= new Road(
 				"maps/entrance.road",
-				"maps/map2.road",
+				"maps/map6.road",
 				"maps/map1.road",
 				"maps/map4.road",
 				"maps/map3.road",
 				"maps/map5.road",
 				"maps/map6.road",
-				"maps/map4.road"
+				"maps/map4.road",
+				"maps/end.road"
 		);
-		ps			= new ParticleSystem();
 
 		if(streamer.playerNo == 1) {
 			player1 = new Player(Assets.player1, View.TILE_SIZE * (road.width / 2), 0);
@@ -74,8 +75,7 @@ public class Game extends ApplicationAdapter {
 
 		ps.update();
 
-		View.follow((player1.getCenterX() * 2 + player2.getCenterX()) / 3,
-				(player1.getCenterY() * 2 + player2.getCenterY()) / 3);
+		View.follow((player1.getCenterX() + player2.getCenterX()) / 2, player1.getCenterY());
 		View.update();
 		Input.update();
 	}
