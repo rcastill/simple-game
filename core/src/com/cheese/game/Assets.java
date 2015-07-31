@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class Assets {
+	public static final String THEME = "road";
+
 	public static Texture road_s_d;
 	public static Texture road_s_r;
 	public static Texture road_s_l;
@@ -37,34 +39,34 @@ public class Assets {
 	public static BitmapFont font;
 
 	static {
-		road_s_d	= new Texture("imgs/road-stop-down.png");
-		road_s_l	= new Texture("imgs/road-stop-left.png");
-		road_s_r	= new Texture("imgs/road-stop-right.png");
-		road_s_u	= new Texture("imgs/road-stop-up.png");
-		road_t_b 	= new Texture("imgs/road-downy.png");
-		road_t_u 	= new Texture("imgs/road-upty.png");
-		road_t_l 	= new Texture("imgs/road-righty.png");
-		road_t_r 	= new Texture("imgs/road-lefty.png");
-		road_tr 	= new Texture("imgs/road-corner-upright.png");
-		road_tl 	= new Texture("imgs/road-corner-upleft.png");
-		road_br 	= new Texture("imgs/road-corner-downright.png");
-		road_bl 	= new Texture("imgs/road-corner-downleft.png");
-		road_v 		= new Texture("imgs/road-vertical.png");
-		road_h 		= new Texture("imgs/road-horizontal.png");
-		road_i		= new Texture("imgs/road-inter.png");
+		road_s_d	= new Texture(THEME + "/road-stop-down.png");
+		road_s_l	= new Texture(THEME + "/road-stop-left.png");
+		road_s_r	= new Texture(THEME + "/road-stop-right.png");
+		road_s_u	= new Texture(THEME + "/road-stop-up.png");
+		road_t_b 	= new Texture(THEME + "/road-downy.png");
+		road_t_u 	= new Texture(THEME + "/road-upty.png");
+		road_t_l 	= new Texture(THEME + "/road-righty.png");
+		road_t_r 	= new Texture(THEME + "/road-lefty.png");
+		road_tr 	= new Texture(THEME + "/road-corner-upright.png");
+		road_tl 	= new Texture(THEME + "/road-corner-upleft.png");
+		road_br 	= new Texture(THEME + "/road-corner-downright.png");
+		road_bl 	= new Texture(THEME + "/road-corner-downleft.png");
+		road_v 		= new Texture(THEME + "/road-vertical.png");
+		road_h 		= new Texture(THEME + "/road-horizontal.png");
+		road_i		= new Texture(THEME + "/road-inter.png");
 
-		grass_bl	= new Texture("imgs/corner-4.png");
-		grass_br	= new Texture("imgs/corner-3.png");
-		grass_tl	= new Texture("imgs/corner-1.png");
-		grass_tr	= new Texture("imgs/corner-2.png");
-		tree_1 		= new Texture("imgs/tree-1.png");
-		tree_2 		= new Texture("imgs/tree-2.png");
-		grass 		= new Texture("imgs/grass.png");
+		grass_bl	= new Texture(THEME + "/corner-4.png");
+		grass_br	= new Texture(THEME + "/corner-3.png");
+		grass_tl	= new Texture(THEME + "/corner-1.png");
+		grass_tr	= new Texture(THEME + "/corner-2.png");
+		tree_1 		= new Texture(THEME + "/tree-1.png");
+		tree_2 		= new Texture(THEME + "/tree-2.png");
+		grass 		= new Texture(THEME + "/grass.png");
 
-		player1 	= new Texture("imgs/truck-blue.png");
-		player2 	= new Texture("imgs/truck-red.png");
+		player1 	= new Texture(THEME + "/truck-blue.png");
+		player2 	= new Texture(THEME + "/truck-red.png");
 
-		smoke		= new Texture("imgs/smoke.png");
+		smoke		= new Texture(THEME + "/smoke.png");
 
 		font = new BitmapFont(Gdx.files.internal("fonts/century_gothic.fnt"));
 		font.setScale(0.75f, 0.75f);

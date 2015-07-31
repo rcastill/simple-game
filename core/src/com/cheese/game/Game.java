@@ -49,7 +49,10 @@ public class Game extends ApplicationAdapter {
 		View.setViewport();
 //		View.lookAt(road.getRealWidth() + 10, 2000);
 		View.lookAt(road.getRealWidth() + 10, 0);
-		Gdx.gl.glClearColor(0.375f, 0.29296875f, 0.2421875f, 1);
+		if(Assets.THEME == "road")
+			Gdx.gl.glClearColor(0.375f, 0.29296875f, 0.2421875f, 1);
+		else
+			Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.input.setInputProcessor(Input.inst);
 	}
 

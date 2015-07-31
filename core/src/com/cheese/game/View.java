@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 
 public class View {
 	public static final float CAMERA_SPEED 	= 0.05f;
-	public static final int TILE_SIZE 		= 64;
+	public static final int TILE_SIZE 		= 60;
 
 	public static int height;
 	public static int width;
